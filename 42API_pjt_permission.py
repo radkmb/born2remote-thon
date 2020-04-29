@@ -54,7 +54,7 @@ def project_permission(project_name, user):
 
 	for l in l_result:
 		if project_name in l['project']['name']:
-			print('<<< "{0}" status >>>\nstatus: {2}\nvalidated?: {3}\nfinal mark: {1}\nretries : {4}\n'.format(project_name, l['final_mark'], l['status'], l['validated?'], 'unretriable' if l['retriable_at'] == None else l['occurrence']))
+# 			print('<<< "{0}" status >>>\nstatus: {2}\nvalidated?: {3}\nfinal mark: {1}\nretries : {4}\n'.format(project_name, l['final_mark'], l['status'], l['validated?'], 'unretriable' if l['retriable_at'] == None else l['occurrence']))
 			if l['status'] == 'finished' and (l['final_mark'] >= 100 or l['retriable_at'] == None or l['cursus_ids'][0] == 9):
 				return True
 	return False
