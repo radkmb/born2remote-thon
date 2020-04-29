@@ -58,3 +58,47 @@ Webサイトの３つの機能
 - Web構成：rfukuda、ydoi
 - 42API：mfunyu、tkawahar
 - DiscordAPIとその他：ksuzuki、yyabumot
+
+## Flask API
+1, 作業フォルダ作成
+```
+$ git clone https://github.com/42Tokyo/born2remote-thon.git
+$ cd born2remote-thon
+```
+
+2, セットアップ
+```
+$ cp .env-sample .env
+```
+.envファイルを各自の環境に合わせて編集
+
+
+```
+$ python3 -m venv .venv
+$ source .venv/bin/activate
+$ pip install -r requirements.txt
+```
+
+3, MySQL セットアップ
+```
+$ deactivate
+$ mysql -u root -p
+```
+パスワードを入力
+
+```
+mysql> CREATE DATABASE [任意のデータベース名];
+mysql> exit
+```
+
+```
+$ mysql -u root [作ったデータベース名] -p < 42hackathon.sql;
+```
+パスワードを入力
+
+4, 起動
+```
+仮想環境に入り、
+$ python3 app.py
+```
+http://127.0.0.1:5000/api/codeworks でテストデータを確認
