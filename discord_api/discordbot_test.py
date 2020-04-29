@@ -5,7 +5,7 @@ import datetime
 # 自分のBotのアクセストークンに置き換える
 TOKEN = 'tokentoken'
 # guild名
-GUILD = 'pre_open02_ksuzuki'
+GUILD = 'guild_name'
 # ボイスチャンネルのカテゴリー名
 VOICE_CATEGORY = 'クラスター'
 # フリーボイスコーナー名
@@ -148,6 +148,16 @@ async def on_message(message):
             reply = '空のチャンネルはありませんでした'
         else:
             reply += 'を削除しました'
+        await message.channel.send(reply)
+    
+    # memberを指定してログイン状態を返す
+    if message.content.startswith("/status"):
+        name = message.content.split()[1]
+        member = discord.utils.find(lambda m: re.match(name + r'[a-z]*', m.name), guild.members)
+        if str(member.status) == 'online':
+            reply = f'{member.name} はオンラインです'
+        else:
+            reply = f'{member.name} はオフラインです'
         await message.channel.send(reply)
 
 # memberのボイスステータスがかわると起動
