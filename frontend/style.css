@@ -1,0 +1,662 @@
+* {
+    margin: 0;
+    padding: 0;
+}
+
+/* header */
+
+.header {
+position: absolute;
+width: 1440px;
+height: 100px;
+left: 0px;
+top: 0px;
+
+background: #A9E2F3;
+}
+
+/* 42Tokyo */
+
+.Tokyo {
+position: absolute;
+width: 155px;
+height: 60px;
+left: 643px;
+top: 20px;
+
+font-family: Ubuntu Condensed;
+font-style: normal;
+font-weight: normal;
+font-size: 48px;
+line-height: 55px;
+text-align: center;
+
+color: #000000;
+}
+
+/* 席 */
+
+.square01 {
+position: absolute;
+width: 65px;
+height: 65px;
+left: 133px;
+top: 163px;
+
+background: #C4C4C4;
+border: 1px solid #000000;
+box-sizing: border-box;
+}
+
+.square02 {
+position: absolute;
+width: 65px;
+height: 65px;
+left: 215px;
+top: 163px;
+
+background: #C4C4C4;
+border: 1px solid #000000;
+box-sizing: border-box;
+}
+
+.square03 {
+position: absolute;
+width: 65px;
+height: 65px;
+left: 543px;
+top: 163px;
+
+background: #C4C4C4;
+border: 1px solid #000000;
+box-sizing: border-box;
+}
+
+.square04 {
+position: absolute;
+width: 65px;
+height: 65px;
+left: 625px;
+top: 163px;
+
+background: #C4C4C4;
+border: 1px solid #000000;
+box-sizing: border-box;
+}
+
+.square05 {
+position: absolute;
+width: 65px;
+height: 65px;
+left: 51px;
+top: 163px;
+
+background: #C4C4C4;
+border: 1px solid #000000;
+box-sizing: border-box;
+}
+
+.square06 {
+position: absolute;
+width: 65px;
+height: 65px;
+left: 297px;
+top: 163px;
+
+background: #C4C4C4;
+border: 1px solid #000000;
+box-sizing: border-box;
+}
+
+.square07 {
+position: absolute;
+width: 65px;
+height: 65px;
+left: 379px;
+top: 163px;
+
+background: #C4C4C4;
+border: 1px solid #000000;
+box-sizing: border-box;
+}
+
+.square08 {
+position: absolute;
+width: 65px;
+height: 65px;
+left: 461px;
+top: 163px;
+
+background: #C4C4C4;
+border: 1px solid #000000;
+box-sizing: border-box;
+}
+
+.square09 {
+position: absolute;
+width: 65px;
+height: 65px;
+left: 133px;
+top: 228px;
+
+background: #C4C4C4;
+border: 1px solid #000000;
+box-sizing: border-box;
+}
+
+.square10 {
+position: absolute;
+width: 65px;
+height: 65px;
+left: 215px;
+top: 228px;
+
+background: #C4C4C4;
+border: 1px solid #000000;
+box-sizing: border-box;
+}
+
+.square11 {
+position: absolute;
+width: 65px;
+height: 65px;
+left: 543px;
+top: 228px;
+
+background: #C4C4C4;
+border: 1px solid #000000;
+box-sizing: border-box;
+}
+
+.square12 {
+position: absolute;
+width: 65px;
+height: 65px;
+left: 625px;
+top: 228px;
+
+background: #C4C4C4;
+border: 1px solid #000000;
+box-sizing: border-box;
+}
+
+.square13 {
+position: absolute;
+width: 65px;
+height: 65px;
+left: 51px;
+top: 228px;
+
+background: #C4C4C4;
+border: 1px solid #000000;
+box-sizing: border-box;
+}
+
+.square14 {
+position: absolute;
+width: 65px;
+height: 65px;
+left: 707px;
+top: 228px;
+
+background: #C4C4C4;
+border: 1px solid #000000;
+box-sizing: border-box;
+}
+
+.square15 {
+position: absolute;
+width: 65px;
+height: 65px;
+left: 297px;
+top: 228px;
+
+background: #C4C4C4;
+border: 1px solid #000000;
+box-sizing: border-box;
+}
+
+.square16 {
+position: absolute;
+width: 65px;
+height: 65px;
+left: 379px;
+top: 228px;
+
+background: #C4C4C4;
+border: 1px solid #000000;
+box-sizing: border-box;
+}
+
+.square17 {
+position: absolute;
+width: 65px;
+height: 65px;
+left: 461px;
+top: 228px;
+
+background: #C4C4C4;
+border: 1px solid #000000;
+box-sizing: border-box;
+}
+
+.square18 {
+position: absolute;
+width: 65px;
+height: 65px;
+left: 133px;
+top: 327px;
+
+background: #C4C4C4;
+border: 1px solid #000000;
+box-sizing: border-box;
+}
+
+.square19 {
+position: absolute;
+width: 65px;
+height: 65px;
+left: 215px;
+top: 327px;
+
+background: #C4C4C4;
+border: 1px solid #000000;
+box-sizing: border-box;
+}
+
+.square20 {
+position: absolute;
+width: 65px;
+height: 65px;
+left: 543px;
+top: 327px;
+
+background: #C4C4C4;
+border: 1px solid #000000;
+box-sizing: border-box;
+}
+
+.square21 {
+position: absolute;
+width: 65px;
+height: 65px;
+left: 625px;
+top: 327px;
+
+background: #C4C4C4;
+border: 1px solid #000000;
+box-sizing: border-box;
+}
+
+.square22 {
+position: absolute;
+width: 65px;
+height: 65px;
+left: 51px;
+top: 327px;
+
+background: #C4C4C4;
+border: 1px solid #000000;
+box-sizing: border-box;
+}
+
+.square23 {
+position: absolute;
+width: 65px;
+height: 65px;
+left: 707px;
+top: 327px;
+
+background: #C4C4C4;
+border: 1px solid #000000;
+box-sizing: border-box;
+}
+
+.square24 {
+position: absolute;
+width: 65px;
+height: 65px;
+left: 297px;
+top: 327px;
+
+background: #C4C4C4;
+border: 1px solid #000000;
+box-sizing: border-box;
+}
+
+.square25 {
+position: absolute;
+width: 65px;
+height: 65px;
+left: 379px;
+top: 327px;
+
+background: #C4C4C4;
+border: 1px solid #000000;
+box-sizing: border-box;
+}
+
+.square26 {
+position: absolute;
+width: 65px;
+height: 65px;
+left: 461px;
+top: 327px;
+
+background: #C4C4C4;
+border: 1px solid #000000;
+box-sizing: border-box;
+}
+
+.square27 {
+position: absolute;
+width: 65px;
+height: 65px;
+left: 133px;
+top: 392px;
+
+background: #C4C4C4;
+border: 1px solid #000000;
+box-sizing: border-box;
+}
+
+.square28 {
+position: absolute;
+width: 65px;
+height: 65px;
+left: 215px;
+top: 392px;
+
+background: #C4C4C4;
+border: 1px solid #000000;
+box-sizing: border-box;
+}
+
+.square29 {
+position: absolute;
+width: 65px;
+height: 65px;
+left: 543px;
+top: 392px;
+
+background: #C4C4C4;
+border: 1px solid #000000;
+box-sizing: border-box;
+}
+
+.square30 {
+position: absolute;
+width: 65px;
+height: 65px;
+left: 625px;
+top: 392px;
+
+background: #C4C4C4;
+border: 1px solid #000000;
+box-sizing: border-box;
+}
+
+.square31 {
+position: absolute;
+width: 65px;
+height: 65px;
+left: 51px;
+top: 392px;
+
+background: #C4C4C4;
+border: 1px solid #000000;
+box-sizing: border-box;
+}
+
+.square32 {
+position: absolute;
+width: 65px;
+height: 65px;
+left: 707px;
+top: 392px;
+
+background: #C4C4C4;
+border: 1px solid #000000;
+box-sizing: border-box;
+}
+
+.square33 {
+position: absolute;
+width: 65px;
+height: 65px;
+left: 297px;
+top: 392px;
+
+background: #C4C4C4;
+border: 1px solid #000000;
+box-sizing: border-box;
+}
+
+.square34 {
+position: absolute;
+width: 65px;
+height: 65px;
+left: 379px;
+top: 392px;
+
+background: #C4C4C4;
+border: 1px solid #000000;
+box-sizing: border-box;
+}
+
+.square35 {
+position: absolute;
+width: 65px;
+height: 65px;
+left: 461px;
+top: 392px;
+
+background: #C4C4C4;
+border: 1px solid #000000;
+box-sizing: border-box;
+}
+
+/* nopさん席 */
+
+.square36 {
+position: absolute;
+width: 65px;
+height: 65px;
+left: 707px;
+top: 163px;
+
+background: url(resources/nop.png);
+}
+
+/* 雑談席 */
+
+.chatSeat01 {
+position: absolute;
+width: 40px;
+height: 40px;
+left: 946px;
+top: 424px;
+
+background: #C4C4C4;
+}
+
+.chatSeat02 {
+position: absolute;
+width: 40px;
+height: 40px;
+left: 946px;
+top: 484px;
+
+background: #C4C4C4;
+}
+
+.chatSeat03 {
+position: absolute;
+width: 40px;
+height: 40px;
+left: 946px;
+top: 544px;
+
+background: #C4C4C4;
+}
+
+.chatSeat04 {
+position: absolute;
+width: 40px;
+height: 40px;
+left: 946px;
+top: 604px;
+
+background: #C4C4C4;
+}
+
+.chatSeat05 {
+position: absolute;
+width: 40px;
+height: 40px;
+left: 946px;
+top: 668px;
+
+background: #C4C4C4;
+}
+
+.chatSeat06 {
+position: absolute;
+width: 40px;
+height: 40px;
+left: 1226px;
+top: 424px;
+
+background: #C4C4C4;
+}
+
+.chatSeat07 {
+position: absolute;
+width: 40px;
+height: 40px;
+left: 1226px;
+top: 484px;
+
+background: #C4C4C4;
+}
+
+.chatSeat08 {
+position: absolute;
+width: 40px;
+height: 40px;
+left: 1226px;
+top: 544px;
+
+background: #C4C4C4;
+}
+
+.chatSeat09 {
+position: absolute;
+width: 40px;
+height: 40px;
+left: 1226px;
+top: 604px;
+
+background: #C4C4C4;
+}
+
+.chatSeat10 {
+position: absolute;
+width: 40px;
+height: 40px;
+left: 1226px;
+top: 668px;
+
+background: #C4C4C4;
+}
+
+/* 雑談スペース */
+
+.chatSpace {
+position: absolute;
+width: 170px;
+height: 310px;
+left: 1021px;
+top: 410px;
+
+background: #C4C4C4;
+}
+
+.chatSpaceText {
+position: absolute;
+width: 155px;
+height: 98px;
+left: 1028px;
+top: 491px;
+
+font-family: Ubuntu Condensed;
+font-style: normal;
+font-weight: normal;
+font-size: 48px;
+line-height: 55px;
+text-align: center;
+
+color: #000000;
+}
+
+
+/* 力作コード館 */
+
+.effortCode {
+position: absolute;
+width: 360px;
+height: 130px;
+left: 926px;
+top: 163px;
+
+background: #C4C4C4;
+}
+
+.effort {
+position: absolute;
+width: 288px;
+height: 55px;
+left: 958px;
+top: 205px;
+
+font-family: Ubuntu Condensed;
+font-style: normal;
+font-weight: normal;
+font-size: 48px;
+line-height: 55px;
+text-align: center;
+
+color: #000000;
+}
+
+
+/* 質問箱 */
+
+.questionBox {
+position: absolute;
+width: 146px;
+height: 145px;
+left: 1021px;
+top: 804px;
+
+background: #C4C4C4;
+}
+
+.questionBoxText {
+position: absolute;
+width: 106px;
+height: 49px;
+left: 1041px;
+top: 852px;
+
+font-family: Ubuntu Condensed;
+font-style: normal;
+font-weight: normal;
+font-size: 48px;
+line-height: 55px;
+display: flex;
+align-items: center;
+text-align: center;
+
+color: #000000;
+}
