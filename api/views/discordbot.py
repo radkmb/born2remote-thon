@@ -68,6 +68,8 @@ async def on_voice_state_update(member, before, after):
 				await member.edit(mute=True)
 
 
+
+
 # チャンネル名を指定してボイスチャンネルを作成して
 # フリーボイスからの移動か招待URLを送る
 # またサーバーミュートを消す
@@ -111,6 +113,13 @@ def cim_voice(name):
 	# await message.channel.send(reply)
 	return reply
 
+# Botの起動とDiscordサーバーへの接続
+client.run(TOKEN)
+
+"""
+これより上はBot起動に必要なコード
+"""
+
 
 # name1 の人が name2の人の席をクリックして
 # name2の人のチャンネルの状況により
@@ -142,21 +151,21 @@ def cim_two_voice(name1, name2):
 	if flag_make_channel:
 		now = datetime.datetime.now()
 		channel_name = name1 + '_{0:%d%H%M%S}'.format(now)
-		channel = await category.create_voice_channel(name=channel_name)
+		channel = category.create_voice_channel(name=channel_name)
 
 	# member1の処理
 	flag = True
 	if member1.voice:
 		if member1.voice.channel.name == FREE_VOICE_CHANNEL:
-			await member1.edit(mute=False, voice_channel=channel)
+			member1.edit(mute=False, voice_channel=channel)
 			# reply = f'{channel.mention} の作成とmemberの移動をしました'
 			reply = 'member1を移動したフラグ'
 			flag = False
 	if flag:
-		invite = await channel.create_invite()
+		invite = channel.create_invite()
 		if not member1.dm_channel:
-			await member1.create_dm()
-		await member1.dm_channel.send(invite)
+			member1.create_dm()
+		member1.dm_channel.send(invite)
 		# reply = f'{channel.mention} の作成と招待をしました'
 		reply = 'member1にDMを送ったフラグ'
 
@@ -165,18 +174,18 @@ def cim_two_voice(name1, name2):
 		flag = True
 		if member2.voice:
 			if member2.voice.channel.name == FREE_VOICE_CHANNEL:
-				await member2.edit(mute=False, voice_channel=channel)
+				member2.edit(mute=False, voice_channel=channel)
 				# reply += f'{channel.mention} の作成とmemberの移動をしました'
 				reply += 'member1を移動したフラグ'
 				flag = False
 		if flag:
-			invite = await channel.create_invite()
+			invite = channel.create_invite()
 			if not member2.dm_channel:
-				await member2.create_dm()
-			await member2.dm_channel.send(invite)
+				member2.create_dm()
+			member2.dm_channel.send(invite)
 			# reply += f'{channel.mention} の作成と招待をしました'
 			reply = 'member2にDMを送ったフラグ'
-	# await message.channel.send(reply)
+	# message.channel.send(reply)
 	return reply
 
 
@@ -198,7 +207,7 @@ def return_status(name):
 	else:
 		# reply = f'{member.name} はオフラインです'
 		reply = 'memberがオンラインではないことをしめすフラグ'
-	# await message.channel.send(reply)
+	# message.channel.send(reply)
 	return reply
 
 
@@ -221,14 +230,14 @@ def move_to_fv(name):
 	flag = True
 	if member.voice:
 		if member.voice.channel:
-			await member.edit(mute=True, voice_channel=channel)
+			member.edit(mute=True, voice_channel=channel)
 			# reply = f'{member.name} をFreeVoiceに移動しました'
 			reply = 'freevoiceへの移動が完了したフラグ'
 			flag = False
 	if flag:
 		# reply = f'{member.name} Voiceチャンネルにいません'
 		reply = 'freevoiceへの移動ができなかったフラグ'
-	# await message.channel.send(reply)
+	# message.channel.send(reply)
 	return reply
 
 
@@ -246,7 +255,5 @@ def delete_channel():
 
 	# 上記カテゴリー内のmemberがいないチャンネルを削除
 	for channel in [c for c in category.channels if not c.members]:
-		await channel.delete()
+		channel.delete()
 
-# Botの起動とDiscordサーバーへの接続
-client.run(TOKEN)
