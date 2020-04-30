@@ -39,9 +39,6 @@ async def on_ready():
 		f'{guild.name}(id: {guild.id})\n')
 
 
-# Blueprintのオブジェクトを生成する
-discordbot = Blueprint('discordbot', __name__)
-
 # memberのボイスステータスがかわると起動
 @client.event
 async def on_voice_state_update(member, before, after):
@@ -71,16 +68,18 @@ async def on_voice_state_update(member, before, after):
 # Botの起動とDiscordサーバーへの接続
 client.run(TOKEN)
 
-"""
-これより上はBot起動に必要なコード
-"""
+
+
+# 
+# これより上はBot起動に必要なコード
+# 
+
 
 
 # チャンネル名を指定してボイスチャンネルを作成して
 # フリーボイスからの移動か招待URLを送る
 # またサーバーミュートを消す
 # (cim = create invite move)
-@discordbot.route('/discordbot/cim_voice', methods=["GET", "POST"])
 def cim_voice(name):
 
 	# guildを指定
@@ -120,12 +119,9 @@ def cim_voice(name):
 	return reply
 
 
-
-
 # name1 の人が name2の人の席をクリックして
 # name2の人のチャンネルの状況により
 # ボイスチャンネルを作ったり、招待したりする
-@discordbot.route('/discordbot/cim_two_voice', methods=["GET", "POST"])
 def cim_two_voice(name1, name2):
 
 	# guildを指定
@@ -191,7 +187,6 @@ def cim_two_voice(name1, name2):
 
 
 # memberを指定してログイン状態を返す
-@discordbot.route('/discordbot/status', methods=["GET", "POST"])
 def return_status(name):
 
 	# guildを指定
@@ -213,7 +208,6 @@ def return_status(name):
 
 
 # フリーボイスに移動させてサーバーミュートにする
-@discordbot.route('/discordbot/move_freevoice', methods=["GET", "POST"])
 def move_to_fv(name):
 
 	# guildを指定
@@ -243,7 +237,6 @@ def move_to_fv(name):
 
 
 # 特定のカテゴリーの空のチャンネルを削除する
-@discordbot.route('/discordbot/delete_channel', methods=["GET", "POST"])
 def delete_channel():
 
 	# guildを指定
@@ -258,3 +251,22 @@ def delete_channel():
 	for channel in [c for c in category.channels if not c.members]:
 		channel.delete()
 
+
+
+# Blueprintのオブジェクトを生成する
+discordbot = Blueprint('discordbot', __name__)
+
+
+
+@discordbot.route('/discordbot/cim_voice', methods=["GET", "POST"])
+	jsonData = json.dumps(request.json)
+	userData = json.loads(jsonData)
+
+
+@discordbot.route('/discordbot/cim_two_voice', methods=["GET", "POST"])
+
+@discordbot.route('/discordbot/status', methods=["GET", "POST"])
+
+@discordbot.route('/discordbot/move_freevoice', methods=["GET", "POST"])
+
+@discordbot.route('/discordbot/delete_channel', methods=["GET", "POST"])
