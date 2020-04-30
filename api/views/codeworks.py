@@ -8,29 +8,20 @@ from . import ft_API
 codeworks_router = Blueprint('codeworks_router', __name__)
 
 # URLに応じて、各メソッドの実行
+
 @codeworks_router.route('/codeworks', methods=['GET'])
-def get_user_list():
-    codework = Codework.getCodeList()
-    codework_schema = CodeworkSchema(many=True)
-    data = codework_schema.dump(codework)
-    print(type(data))
-    print(data)
-    print(data[0]['subject'])
-    return make_response(jsonify({
-        'code': 200,
-        'data': codework_schema.dump(codework)
-    }))
-
-@codeworks_router.route('/codeacsess', methods=['GET'])
-def get_user_permission():
-    projects = ft_API.project_permission('ydoi')
+@jwt_required()
+# ユーザーのアクセス権のあるコードだけが表示される
+def get_permitted_codeworks():
+    # ユーザーの閲覧可能なプロジェクト全て
+    projects = ft_API.project_permission(current_identity.id)
 
     codework = Codework.getCodeList()
     codework_schema = CodeworkSchema(many=True)
-    data = codework_schema.dump(codework)
+
     l_data = []
-    # premission = False
-    for l in data:
+    # 投稿されているコードから閲覧可能なものを抽出
+    for l in codework_schema.dump(codework):
         if l['subject'] in projects:
             l_data.append(l)
     return make_response(jsonify({

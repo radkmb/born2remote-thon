@@ -6,7 +6,7 @@
 #    By: mfunyu <mfunyu@student.42tokyo.jp>         +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2020/04/28 14:47:57 by mfunyu            #+#    #+#              #
-#    Updated: 2020/04/30 14:27:19 by mfunyu           ###   ########.fr        #
+#    Updated: 2020/04/30 14:54:12 by mfunyu           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -14,8 +14,8 @@
 import requests
 import settings
 
-client_id = settings.CLIENT_ID
-client_secret = settings.CLIENT_SECRET
+client_id = settings.FT_CLIENT_UID
+client_secret = settings.FT_CLIENT_SECRET
 datap = {
 	"grant_type": "client_credentials",
 	"client_id": client_id,
@@ -37,13 +37,11 @@ def ft_API(url, payload):
 	return result
 
 
-# ユーザーが課題にアクセス権があるか調べる
-# project_name = 'C Piscine C 10'
+# ユーザーがアクセス権を持つ課題を全て列挙
 # user = 'login ID'
-# [戻り値 = True / False]
+# [戻り値 = 課題名のリスト]
 def project_permission(user):
 
-	# project_id = project_name.lower().replace(' ', '-')
 	url = 'https://api.intra.42.fr/v2/users/{}/projects_users'.format(user)
 	payload = {}
 
