@@ -1,0 +1,60 @@
+* {
+    margin: 0;
+    padding: 0;
+}
+
+/* header */
+.header {
+
+    width: 100%;
+    display: inline;
+
+    text-align: center;
+}
+/* 42Tokyo */
+
+.Tokyo {
+
+    height: 100px;
+    color: #000000;
+    background-color: #A9E2F3;
+}
+
+.Tokyo h1{
+
+    font-family: Ubuntu Condensed;
+    font-style: normal;
+    font-weight: normal;
+    line-height: 100px;
+    font-size: 300%;
+}
+
+.codeview {
+
+    display: block;
+    width: 95%;
+    top: 150px;
+
+    font-size: 14px;
+
+    margin-top: 20px;
+    margin-left: auto;
+    margin-right: auto;
+
+}
+
+.codediscription {
+    width: 100%;
+    margin-top: 10px;
+    margin-bottom: 20px;
+}
+
+.description {
+    width: 95%;
+
+    margin-left: auto;
+    margin-right: auto;
+
+    border-style: solid;
+    border-width: 2px;
+}
