@@ -30,6 +30,7 @@ def get_permitted_codeworks():
     }))
 
 @codeworks_router.route('/codeworks', methods=['POST'])
+@jwt_required()
 def register_codework():
 
     jsonData = json.dumps(request.json)

@@ -1,5 +1,6 @@
 import json
 from api.database import db, ma
+from sqlalchemy.exc import IntegrityError
 
 class User(db.Model):
 	__tablename__ = 'users'
@@ -37,6 +38,9 @@ class User(db.Model):
 			password = user['password']
 		)
 		db.session.add(record)
-		db.session.commit()
+		try:
+			db.session.commit()
+		except IntegrityError:
+			return {'error': "{} is already exist on Database.".format(user['name'])}
 
 		return user

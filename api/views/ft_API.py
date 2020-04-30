@@ -67,3 +67,13 @@ def all_projects():
 	projects += [l['name'] for l in ft_API(url, payload)]
 
 	return projects
+
+
+def validate_42user(username):
+	url = 'https://api.intra.42.fr/v2/users'
+	payload = {'filter[login]': username}
+	users = ft_API(url, payload)
+	if len(users) == 1:
+		return True
+	else:
+		return False

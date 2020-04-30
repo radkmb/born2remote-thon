@@ -3,6 +3,7 @@ from flask import Blueprint, request, make_response, jsonify
 from flask_jwt import jwt_required, current_identity
 from werkzeug.security import safe_str_cmp
 from api.models import User
+from . import ft_API
 
 session_router = Blueprint('session_router', __name__)
 
@@ -33,8 +34,20 @@ def register_user():
     jsonData = json.dumps(request.json)
     userData = json.loads(jsonData)
 
+    if not ft_API.validate_42user(userData['name']):
+        return make_response(jsonify({
+            'code': 401,
+            'data': "{} is not exist in 42 campus.".format(userData['name'])
+        }))
+
     user = User.registUser(userData)
 
+    if user.get('error'):
+        return make_response(jsonify({
+            'code': 401,
+            'data': user
+        }))
+    
     return make_response(jsonify({
         'code': 200,
         'data': user
