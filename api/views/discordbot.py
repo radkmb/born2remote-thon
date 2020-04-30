@@ -80,6 +80,7 @@ client.run(TOKEN)
 # フリーボイスからの移動か招待URLを送る
 # またサーバーミュートを消す
 # (cim = create invite move)
+@discordbot.route('/cim_voice', methods=["GET", "POST"])
 def cim_voice(name):
 
 	# guildを指定
@@ -122,6 +123,7 @@ def cim_voice(name):
 # name1 の人が name2の人の席をクリックして
 # name2の人のチャンネルの状況により
 # ボイスチャンネルを作ったり、招待したりする
+@discordbot.route('/cim_two_voice', methods=["GET", "POST"])
 def cim_two_voice(name1, name2):
 
 	# guildを指定
@@ -187,6 +189,7 @@ def cim_two_voice(name1, name2):
 
 
 # memberを指定してログイン状態を返す
+@discordbot.route('/status', methods=["GET", "POST"])
 def return_status(name):
 
 	# guildを指定
@@ -208,6 +211,7 @@ def return_status(name):
 
 
 # フリーボイスに移動させてサーバーミュートにする
+@discordbot.route('/move_freevoice', methods=["GET", "POST"])
 def move_to_fv(name):
 
 	# guildを指定
@@ -237,6 +241,7 @@ def move_to_fv(name):
 
 
 # 特定のカテゴリーの空のチャンネルを削除する
+@discordbot.route('/delete_channel', methods=["GET", "POST"])
 def delete_channel():
 
 	# guildを指定
@@ -258,15 +263,13 @@ discordbot = Blueprint('discordbot', __name__)
 
 
 
-@discordbot.route('/discordbot/cim_voice', methods=["GET", "POST"])
-	jsonData = json.dumps(request.json)
-	userData = json.loads(jsonData)
+@discordbot.route('/cim_voice', methods=["GET", "POST"])
 
 
-@discordbot.route('/discordbot/cim_two_voice', methods=["GET", "POST"])
+@discordbot.route('/cim_two_voice', methods=["GET", "POST"])
 
-@discordbot.route('/discordbot/status', methods=["GET", "POST"])
+@discordbot.route('/status', methods=["GET", "POST"])
 
-@discordbot.route('/discordbot/move_freevoice', methods=["GET", "POST"])
+@discordbot.route('/move_freevoice', methods=["GET", "POST"])
 
-@discordbot.route('/discordbot/delete_channel', methods=["GET", "POST"])
+@discordbot.route('/delete_channel', methods=["GET", "POST"])
