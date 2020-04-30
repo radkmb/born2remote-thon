@@ -30,7 +30,7 @@ def get_permitted_codeworks():
     }))
 
 @codeworks_router.route('/codeworks', methods=['POST'])
-def registUser():
+def register_codework():
 
     jsonData = json.dumps(request.json)
     codeData = json.loads(jsonData)

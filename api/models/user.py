@@ -30,3 +30,13 @@ class User(db.Model):
 			return []
 		else:
 			return userid_table
+
+	def registUser(user):
+		record = User(
+			name = user['name'],
+			password = user['password']
+		)
+		db.session.add(record)
+		db.session.commit()
+
+		return user
