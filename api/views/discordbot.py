@@ -68,6 +68,12 @@ async def on_voice_state_update(member, before, after):
 				await member.edit(mute=True)
 
 
+# Botの起動とDiscordサーバーへの接続
+client.run(TOKEN)
+
+"""
+これより上はBot起動に必要なコード
+"""
 
 
 # チャンネル名を指定してボイスチャンネルを作成して
@@ -91,7 +97,7 @@ def cim_voice(name):
 	# 現在時刻を取得してチャンネル名を決めて、チャンネルをカテゴリーにつくる
 	now = datetime.datetime.now()
 	channel_name = name + '_{0:%d%H%M%S}'.format(now)
-	new_channel = await category.create_voice_channel(name=channel_name)
+	new_channel = category.create_voice_channel(name=channel_name)
 
 	# memberがFREE_VOICE_CHANNELにいるかどうかで場合分け
 	# free_voice → チャンネルをに移動
@@ -99,26 +105,21 @@ def cim_voice(name):
 	flag = True
 	if member.voice:
 		if member.voice.channel.name == FREE_VOICE_CHANNEL:
-			await member.edit(mute=False, voice_channel=new_channel)
+			member.edit(mute=False, voice_channel=new_channel)
 			# reply = f'{new_channel.mention} の作成とmemberの移動をしました'
 			reply = '作成と移動が完了した旨のフラグ'
 			flag = False
 	if flag:
-		invite = await new_channel.create_invite()
+		invite = new_channel.create_invite()
 		if not member.dm_channel:
-			await member.create_dm()
-		await member.dm_channel.send(invite)
+			member.create_dm()
+		member.dm_channel.send(invite)
 		# reply = f'{new_channel.mention} の作成と招待をしました'
 		reply = '作成と招待が完了した旨のフラグ'
-	# await message.channel.send(reply)
+	# message.channel.send(reply)
 	return reply
 
-# Botの起動とDiscordサーバーへの接続
-client.run(TOKEN)
 
-"""
-これより上はBot起動に必要なコード
-"""
 
 
 # name1 の人が name2の人の席をクリックして
