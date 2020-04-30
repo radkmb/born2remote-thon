@@ -224,7 +224,7 @@ def move_to_fv(name):
 			await member.edit(mute=True, voice_channel=channel)
 			# reply = f'{member.name} をFreeVoiceに移動しました'
 			reply = 'freevoiceへの移動が完了したフラグ'
-			flag = Flase
+			flag = False
 	if flag:
 		# reply = f'{member.name} Voiceチャンネルにいません'
 		reply = 'freevoiceへの移動ができなかったフラグ'
@@ -248,3 +248,5 @@ def delete_channel():
 	for channel in [c for c in category.channels if not c.members]:
 		await channel.delete()
 
+# Botの起動とDiscordサーバーへの接続
+client.run(TOKEN)
