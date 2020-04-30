@@ -257,14 +257,15 @@ def delete_channel():
 		channel.delete()
 
 
+# 
+# 以下Blueprintについて
+# 
 
 # Blueprintのオブジェクトを生成する
 discordbot = Blueprint('discordbot', __name__)
 
 
-
 @discordbot.route('/cim_voice', methods=["GET", "POST"])
-
 
 @discordbot.route('/cim_two_voice', methods=["GET", "POST"])
 
