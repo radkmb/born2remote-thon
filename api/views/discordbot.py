@@ -112,6 +112,74 @@ def cim_voice(name):
 	return reply
 
 
+# name1 の人が name2の人の席をクリックして
+# name2の人のチャンネルの状況により
+# ボイスチャンネルを作ったり、招待したりする
+@discordbot.route('/discordbot/cim_two_voice', methods=["GET", "POST"])
+def cim_two_voice(name1, name2):
+
+	# guildを指定
+	for guild in client.guilds:
+		if guild.name == GUILD:
+			break
+
+	# カテゴリーを指定
+	category = discord.utils.get(guild.categories, name=VOICE_CATEGORY)
+
+	# memberを指定
+	member1 = discord.utils.find(lambda m: match_name(name1, m.name), guild.members)
+	member2 = discord.utils.find(lambda m: match_name(name2, m.name), guild.members)
+
+    # member2がクラスターのボイスチャンネルに入ってたらそこにまざり、
+	# そうでなかったら自分の部屋を作る
+	# flag_make_channel...channelを作る場合Trueになる
+	flag_make_channel = True 
+	if member2.voice:
+		if member2.voice.channel:
+			if member2.voice.channel.category == category:
+				channel = member2.voice.channel
+				flag_make_channel = False
+	if flag_make_channel:
+		now = datetime.datetime.now()
+		channel_name = name1 + '_{0:%d%H%M%S}'.format(now)
+		channel = await category.create_voice_channel(name=channel_name)
+
+	# member1の処理
+	flag = True
+	if member1.voice:
+		if member1.voice.channel.name == FREE_VOICE_CHANNEL:
+			await member1.edit(mute=False, voice_channel=channel)
+			# reply = f'{channel.mention} の作成とmemberの移動をしました'
+			reply = 'member1を移動したフラグ'
+			flag = False
+	if flag:
+		invite = await channel.create_invite()
+		if not member1.dm_channel:
+			await member1.create_dm()
+		await member1.dm_channel.send(invite)
+		# reply = f'{channel.mention} の作成と招待をしました'
+		reply = 'member1にDMを送ったフラグ'
+
+	# member2の処理
+	if flag_make_channel:
+		flag = True
+		if member2.voice:
+			if member2.voice.channel.name == FREE_VOICE_CHANNEL:
+				await member2.edit(mute=False, voice_channel=channel)
+				# reply += f'{channel.mention} の作成とmemberの移動をしました'
+				reply += 'member1を移動したフラグ'
+				flag = False
+		if flag:
+			invite = await channel.create_invite()
+			if not member2.dm_channel:
+				await member2.create_dm()
+			await member2.dm_channel.send(invite)
+			# reply += f'{channel.mention} の作成と招待をしました'
+			reply = 'member2にDMを送ったフラグ'
+	# await message.channel.send(reply)
+	return reply
+
+
 # memberを指定してログイン状態を返す
 @discordbot.route('/discordbot/status', methods=["GET", "POST"])
 def return_status(name):
