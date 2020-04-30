@@ -7,7 +7,7 @@
 #
 # ホスト: 127.0.0.1 (MySQL 5.7.26)
 # データベース: 42hackathon
-# 作成時刻: 2020-04-29 07:53:44 +0000
+# 作成時刻: 2020-04-29 16:38:08 +0000
 # ************************************************************
 
 
@@ -46,6 +46,31 @@ VALUES
 	(3,'ydoi','Pre Open 01','ex01模範','<span>python3 app.py</span>','This code is amazing.','2020-04-29 17:32:42');
 
 /*!40000 ALTER TABLE `codeworks` ENABLE KEYS */;
+UNLOCK TABLES;
+
+
+# テーブルのダンプ users
+# ------------------------------------------------------------
+
+DROP TABLE IF EXISTS `users`;
+
+CREATE TABLE `users` (
+  `id` int(11) unsigned NOT NULL AUTO_INCREMENT,
+  `name` varchar(50) NOT NULL DEFAULT '',
+  `password` varchar(255) NOT NULL DEFAULT '',
+  PRIMARY KEY (`id`),
+  UNIQUE KEY `name` (`name`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+LOCK TABLES `users` WRITE;
+/*!40000 ALTER TABLE `users` DISABLE KEYS */;
+
+INSERT INTO `users` (`id`, `name`, `password`)
+VALUES
+	(1,'ydoi','password'),
+	(2,'user1','abcdefg');
+
+/*!40000 ALTER TABLE `users` ENABLE KEYS */;
 UNLOCK TABLES;
 
 

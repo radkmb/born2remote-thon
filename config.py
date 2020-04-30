@@ -12,4 +12,6 @@ class SystemConfig:
         'db_name': settings.DATABASE_NAME
     })
 
+    SECRET_KEY = 'super-secret'
+
 Config = SystemConfig
