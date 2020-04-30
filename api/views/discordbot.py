@@ -2,9 +2,10 @@ from flask import Blueprint
 import discord
 import re
 import datetime
+import settings
 
-# 自分のBotのアクセストークンに置き換える
-TOKEN = 'tokentoken'
+# .envファイルに設定したbotのトークンを取得
+TOKEN = settings.DISCORD_TOKEN
 # guild名
 GUILD = 'pre_open02_ksuzuki'
 # ボイスチャンネルのカテゴリー名
@@ -70,9 +71,9 @@ client.run(TOKEN)
 
 
 
-# 
+#
 # これより上はBot起動に必要なコード
-# 
+#
 
 
 
@@ -141,7 +142,7 @@ def cim_two_voice(name1, name2):
     # member2がクラスターのボイスチャンネルに入ってたらそこにまざり、
 	# そうでなかったら自分の部屋を作る
 	# flag_make_channel...channelを作る場合Trueになる
-	flag_make_channel = True 
+	flag_make_channel = True
 	if member2.voice:
 		if member2.voice.channel:
 			if member2.voice.channel.category == category:
