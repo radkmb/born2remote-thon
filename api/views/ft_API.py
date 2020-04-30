@@ -1,26 +1,21 @@
 # **************************************************************************** #
 #                                                                              #
 #                                                         :::      ::::::::    #
-#    42API_cluster_user.py                              :+:      :+:    :+:    #
+#    ft_API.py                                          :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
 #    By: mfunyu <mfunyu@student.42tokyo.jp>         +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2020/04/28 14:47:57 by mfunyu            #+#    #+#              #
-#    Updated: 2020/04/29 22:55:50 by mfunyu           ###   ########.fr        #
+#    Updated: 2020/04/30 14:27:19 by mfunyu           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 # アクセストークンの取得
 import requests
-import os
-from os.path import join, dirname
-from dotenv import load_dotenv
+import settings
 
-dotenv_path = join(dirname(__file__), '.env')
-load_dotenv(dotenv_path)
-
-client_id = os.environ.get("CLIENT_ID")
-client_secret = os.environ.get("CLIENT_SECRET")
+client_id = settings.CLIENT_ID
+client_secret = settings.CLIENT_SECRET
 datap = {
 	"grant_type": "client_credentials",
 	"client_id": client_id,
@@ -46,19 +41,19 @@ def ft_API(url, payload):
 # project_name = 'C Piscine C 10'
 # user = 'login ID'
 # [戻り値 = True / False]
-def project_permission(project_name, user):
+def project_permission(user):
 
-	project_id = project_name.lower().replace(' ', '-')
+	# project_id = project_name.lower().replace(' ', '-')
 	url = 'https://api.intra.42.fr/v2/users/{}/projects_users'.format(user)
 	payload = {}
 
 	l_result = ft_API(url, payload)
 
+	projects = []
 	for l in l_result:
-		if project_name in l['project']['name']:
-			if l['status'] == 'finished' and (l['final_mark'] >= 100 or l['retriable_at'] == None or l['cursus_ids'][0] == 9):
-				return True
-	return False
+		if l['status'] == 'finished' and (l['final_mark'] >= 100 or l['retriable_at'] == None or l['cursus_ids'][0] == 9):
+			projects.append(l['project']['name'])
+	return projects
 
 # Piscine Reloadedの課題全てを取得
 # [戻り値 = [プロジェクト名のリスト]]

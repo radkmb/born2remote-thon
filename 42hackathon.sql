@@ -42,7 +42,7 @@ LOCK TABLES `codeworks` WRITE;
 INSERT INTO `codeworks` (`id`, `username`, `subject`, `title`, `code`, `description`, `created_at`)
 VALUES
 	(1,'ydoi','Pre Open 02','ex00について','<span>Hello World!</span>','This code is awesome','2020-04-29 17:32:42'),
-	(2,'ydoi','Pre Open 02','ex01の傑作','<span>Hello Japan!</span>','This code is fabulous.','2020-04-29 17:32:42'),
+	(2,'ydoi','Pre Open 00','ex01の傑作','<span>Hello Japan!</span>','This code is fabulous.','2020-04-29 17:32:42'),
 	(3,'ydoi','Pre Open 01','ex01模範','<span>python3 app.py</span>','This code is amazing.','2020-04-29 17:32:42');
 
 /*!40000 ALTER TABLE `codeworks` ENABLE KEYS */;
