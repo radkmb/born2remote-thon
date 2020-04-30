@@ -14,16 +14,16 @@ class Codework(db.Model):
     created_at = db.Column(db.DateTime, default=datetime.datetime.now)
 
     def __repr__(self):
-        return '<Codework %r>' % self.name
+        return '<Codework %r>' % self.username
 
     def getCodeList():
 
-        user_list = db.session.query(Codework).all()
+        codework_list = db.session.query(Codework).all()
 
-        if user_list == None:
+        if codework_list == None:
             return []
         else:
-            return user_list
+            return codework_list
 
     def registCodework(codework):
         record = Codework(

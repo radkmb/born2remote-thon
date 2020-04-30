@@ -1,5 +1,6 @@
 import json
 from flask import Blueprint, request, make_response, jsonify
+from flask_jwt import jwt_required, current_identity
 from api.models import Codework, CodeworkSchema
 
 # ルーティングの設定
@@ -30,4 +31,16 @@ def registUser():
     return make_response(jsonify({
         'code': 200,
         'data': codework
+    }))
+
+
+@codeworks_router.route('/codeworks/protected', methods=['GET'])
+@jwt_required()
+# @jwt_requiredをすると、ログインしていないと実施できない関数になる。current_identityが使えるから、ユーザー名も拾える
+def protected():
+    print("User ID: {}".format(current_identity.id))
+    print("User Name: {}".format(current_identity.name))
+    return make_response(jsonify({
+        'id': current_identity.id,
+        'name': current_identity.name
     }))
