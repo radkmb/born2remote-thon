@@ -34,12 +34,14 @@ def register_user():
     jsonData = json.dumps(request.json)
     userData = json.loads(jsonData)
 
-    if not ft_API.validate_42user(userData['name']):
+    ft_id = ft_API.validate_42user(userData['username'])
+    if not ft_id:
         return make_response(jsonify({
             'code': 401,
-            'data': "{} is not exist in 42 campus.".format(userData['name'])
+            'data': "{} is not exist in 42 campus.".format(userData['username'])
         }))
 
+    userData['ft_id'] = ft_id
     user = User.registUser(userData)
 
     if user.get('error'):

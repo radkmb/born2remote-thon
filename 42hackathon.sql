@@ -7,7 +7,7 @@
 #
 # ホスト: 127.0.0.1 (MySQL 5.7.26)
 # データベース: 42hackathon
-# 作成時刻: 2020-04-29 16:38:08 +0000
+# 作成時刻: 2020-04-30 10:03:04 +0000
 # ************************************************************
 
 
@@ -42,8 +42,11 @@ LOCK TABLES `codeworks` WRITE;
 INSERT INTO `codeworks` (`id`, `username`, `subject`, `title`, `code`, `description`, `created_at`)
 VALUES
 	(1,'ydoi','Pre Open 02','ex00について','<span>Hello World!</span>','This code is awesome','2020-04-29 17:32:42'),
-	(2,'ydoi','Pre Open 00','ex01の傑作','<span>Hello Japan!</span>','This code is fabulous.','2020-04-29 17:32:42'),
-	(3,'ydoi','Pre Open 01','ex01模範','<span>python3 app.py</span>','This code is amazing.','2020-04-29 17:32:42');
+	(2,'ydoi','Pre Open 02','ex01の傑作','<span>Hello Japan!</span>','This code is fabulous.','2020-04-29 17:32:42'),
+	(3,'ydoi','Pre Open 01','ex01模範','<span>python3 app.py</span>','This code is amazing.','2020-04-29 17:32:42'),
+	(4,'ydoi','C Piscine C 10','ex09','<span>TEST TEST</span>','This code is fantastic','2020-04-30 18:41:17'),
+	(5,'ydoi','C Piscine C 13','ex09','<span>TEST TEST</span>','This code is fantastic','2020-04-30 18:50:07'),
+	(6,'ydoi','C Piscine C 11','ex09','<span>TEST TEST</span>','This code is fantastic','2020-04-30 18:51:14');
 
 /*!40000 ALTER TABLE `codeworks` ENABLE KEYS */;
 UNLOCK TABLES;
@@ -56,19 +59,21 @@ DROP TABLE IF EXISTS `users`;
 
 CREATE TABLE `users` (
   `id` int(11) unsigned NOT NULL AUTO_INCREMENT,
-  `name` varchar(50) NOT NULL DEFAULT '',
+  `ft_id` int(11) NOT NULL,
+  `username` varchar(50) NOT NULL DEFAULT '',
   `password` varchar(255) NOT NULL DEFAULT '',
   PRIMARY KEY (`id`),
-  UNIQUE KEY `name` (`name`)
+  UNIQUE KEY `name` (`username`),
+  UNIQUE KEY `42_id` (`ft_id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 LOCK TABLES `users` WRITE;
 /*!40000 ALTER TABLE `users` DISABLE KEYS */;
 
-INSERT INTO `users` (`id`, `name`, `password`)
+INSERT INTO `users` (`id`, `ft_id`, `username`, `password`)
 VALUES
-	(1,'ydoi','password'),
-	(2,'user1','abcdefg');
+	(1,67719,'ydoi','password'),
+	(4,67644,'ksuzuki','password');
 
 /*!40000 ALTER TABLE `users` ENABLE KEYS */;
 UNLOCK TABLES;

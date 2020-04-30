@@ -14,7 +14,7 @@ codeworks_router = Blueprint('codeworks_router', __name__)
 # ユーザーのアクセス権のあるコードだけが表示される
 def get_permitted_codeworks():
     # ユーザーの閲覧可能なプロジェクト全て
-    projects = ft_API.project_permission(current_identity.id)
+    projects = ft_API.project_permission(current_identity.ft_id)
 
     codework = Codework.getCodeList()
     codework_schema = CodeworkSchema(many=True)
@@ -49,9 +49,11 @@ def register_codework():
 @jwt_required()
 # @jwt_requiredをすると、ログインしていないと実施できない関数になる。current_identityが使えるから、ユーザー名も拾える
 def protected():
-    print("User ID: {}".format(current_identity.id))
-    print("User Name: {}".format(current_identity.name))
+    print("User Database ID: {}".format(current_identity.id))
+    print("User 42 ID: {}".format(current_identity.ft_id))
+    print("User Name: {}".format(current_identity.username))
     return make_response(jsonify({
         'id': current_identity.id,
-        'name': current_identity.name
+        'ft_id': current_identity.ft_id,
+        'username': current_identity.username
     }))
