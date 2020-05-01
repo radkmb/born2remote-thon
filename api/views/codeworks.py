@@ -1,5 +1,5 @@
 import json
-from flask import Blueprint, request, make_response, jsonify
+from flask import *
 from flask_jwt import jwt_required, current_identity
 from api.models import Codework, CodeworkSchema
 from . import ft_API
@@ -8,13 +8,22 @@ from . import ft_API
 codeworks_router = Blueprint('codeworks_router', __name__)
 
 # URLに応じて、各メソッドの実行
+@codeworks_router.route('/codework', methods=['GET'])
+@jwt_required()
+def display_codework():
+    return render_template("codemuseum.html")
 
 @codeworks_router.route('/codeworks', methods=['GET'])
 @jwt_required()
+def display_codelists():
+    projects = get_permitted_codeworks()
+    print(projects)
+    return render_template("codelist.html", projects=projects)
+
 # ユーザーのアクセス権のあるコードだけが表示される
 def get_permitted_codeworks():
     # ユーザーの閲覧可能なプロジェクト全て
-    projects = ft_API.project_permission(current_identity.ft_id)
+    projects = ft_API.project_permission(current_identity.id)
 
     codework = Codework.getCodeList()
     codework_schema = CodeworkSchema(many=True)
@@ -24,10 +33,7 @@ def get_permitted_codeworks():
     for l in codework_schema.dump(codework):
         if l['subject'] in projects:
             l_data.append(l)
-    return make_response(jsonify({
-        'code': 200,
-        'data': l_data
-    }))
+    return l_data
 
 @codeworks_router.route('/codeworks', methods=['POST'])
 @jwt_required()

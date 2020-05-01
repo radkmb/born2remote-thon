@@ -16,15 +16,15 @@
         </div>
         <div class="projectList">
 
-            <h1><span class="prjtitle">PreOpen 00</span><span class="author">nfukuda</span></h1>
+            <!-- <h1><span class="prjtitle">PreOpen 00</span><span class="author">nfukuda</span></h1>
             <h1><span class="prjtitle"></span>PreOpen 02</span><span class="author">nfukuda</span></h1>
-            <h1><span class="prjtitle"></span>EvlExp</span><span class="author">nfukuda</span></h1>
+            <h1><span class="prjtitle"></span>EvlExp</span><span class="author">nfukuda</span></h1> -->
 
-            <!-- for で　保存してある分だけ回してすべて表示する必要がある
+            <!-- for で　保存してある分だけ回してすべて表示する必要がある -->
             {% for prj in projects %}
-                <h1><span class="prjtitle">{{project_name}}</span><span class="author">{{author_name}}</span></h1>
+                <a href="/api/codework"><h1><span class="prjtitle">{{prj['subject']}}</span><span class="author">{{prj['username']}}</span></h1></a>
             {% endfor %}
-            -->
+
 
         </div>
     </body>
