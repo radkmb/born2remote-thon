@@ -1,0 +1,86 @@
+* {
+    margin: 0;
+    padding: 0;
+}
+
+/* header */
+.header {
+
+    width: 100%;
+    display: inline;
+
+    text-align: center;
+}
+/* 42Tokyo */
+
+.Tokyo {
+
+    height: 100px;
+    color: #000000;
+    background-color: #A9E2F3;
+}
+
+.Tokyo h1{
+
+    font-family: Ubuntu Condensed;
+    font-style: normal;
+    font-weight: normal;
+    line-height: 100px;
+    font-size: 300%;
+}
+
+.listHeader{
+    width: 99%;
+    text-align: center;
+    height: 90px;
+    margin-left: auto;
+    margin-right: auto;
+    border-style: solid;
+    border-width: 0.8px;
+    margin-bottom: 0.1px;
+    background-color: lightgrey;
+}
+.listHeader h1{
+    font-size: 40px;
+    line-height: 80px;
+}
+
+button{
+    font-size: 30px;
+    background-color: #a0ee6c;
+    border-radius: 0.2666666667em;
+}
+
+.publishbtn{
+    padding-top: 20px;
+    float: right;
+    margin-right: 30px;
+
+}
+
+
+.projectList{
+    width: 99%;
+    background-color: lightgrey;
+
+    margin-left: auto;
+    margin-right: auto;
+}
+
+
+.projectList h1{
+    line-height: 75px;
+    height: 90px;
+    border-style: solid;
+    border-width: 0.8px;
+    margin-bottom: 0.1px;
+}
+
+.prjtitle{
+    margin-left: 20px;
+}
+
+.author{
+    float: right;
+    margin-right: 30px;
+}
