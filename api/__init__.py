@@ -22,7 +22,7 @@ def create_app():
 
     app.register_blueprint(codeworks_router, url_prefix='/api')
     app.register_blueprint(session_router, url_prefix='/session')
-    # app.register_blueprint(discordbot, url_prefix='/discordbot')
+    app.register_blueprint(discordbot, url_prefix='/discordbot')
 
     return app
 

@@ -1,4 +1,6 @@
-from flask import Blueprint, make_response, jsonify
+import json
+from flask import Blueprint, make_response, jsonify, request
+from flask_jwt import jwt_required, current_identity
 import discord
 import re
 import datetime
@@ -20,20 +22,23 @@ def match_name(name, target):
     else:
         return False
 
+client = discord.Client()
+reply = 0
+reply_list = [0, 0]
+ready_flag = 0
+name = ''
+target = ''
 
-# チャンネル名を指定してボイスチャンネルを作成して
-# フリーボイスからの移動か招待URLを送る
-# またサーバーミュートを消す
-# (cim = create invite move)
-def ft_cim_voice(name):
+# client起動時に動作する処理
+@client.event
+async def on_ready():
 
-	# 接続に必要なオブジェクトを生成
-	client = discord.Client()
-	reply = 0
 
-	# 起動時に動作する処理
-	@client.event
-	async def on_ready():
+	# チャンネル名を指定してボイスチャンネルを作成して
+	# フリーボイスからの移動か招待URLを送る
+	# またサーバーミュートを消す
+	# (cim = create invite move)
+	if ready_flag == 1:
 		global reply
 		# guildを指定
 		for guild in client.guilds:
@@ -68,27 +73,12 @@ def ft_cim_voice(name):
 			await member.dm_channel.send(invite)
 			# '作成と招待が完了した旨のフラグ'
 			reply = 2
-		await client.close()
 
-	# Botの起動とDiscordサーバーへの接続
-	client.run(TOKEN)
-	return reply
-
-
-
-# name1 の人が name2の人の席をクリックして
-# name2の人のチャンネルの状況により
-# ボイスチャンネルを作ったり、招待したりする
-def ft_cim_two_voice(name1, name2):
-
-	# 接続に必要なオブジェクトを生成
-	client = discord.Client()
-	reply = [0, 0]
-
-	# 起動時に動作する処理
-	@client.event
-	async def on_ready():
-		global reply
+	# name1 の人が name2の人の席をクリックして
+	# name2の人のチャンネルの状況により
+	# ボイスチャンネルを作ったり、招待したりする
+	elif ready_flag == 2:
+		global reply_list
 
 		# guildを指定
 		for guild in client.guilds:
@@ -99,8 +89,8 @@ def ft_cim_two_voice(name1, name2):
 		category = discord.utils.get(guild.categories, name=VOICE_CATEGORY)
 
 		# memberを指定
-		member1 = discord.utils.find(lambda m: match_name(name1, m.name), guild.members)
-		member2 = discord.utils.find(lambda m: match_name(name2, m.name), guild.members)
+		member1 = discord.utils.find(lambda m: match_name(name, m.name), guild.members)
+		member2 = discord.utils.find(lambda m: match_name(target, m.name), guild.members)
 
 		# member2がクラスターのボイスチャンネルに入ってたらそこにまざり、
 		# そうでなかったら自分の部屋を作る
@@ -113,7 +103,7 @@ def ft_cim_two_voice(name1, name2):
 					flag_make_channel = False
 		if flag_make_channel:
 			now = datetime.datetime.now()
-			channel_name = name1 + '_{0:%d%H%M%S}'.format(now)
+			channel_name = name + '_{0:%d%H%M%S}'.format(now)
 			channel = await category.create_voice_channel(name=channel_name)
 
 		# member1の処理
@@ -122,7 +112,7 @@ def ft_cim_two_voice(name1, name2):
 			if member1.voice.channel.name == FREE_VOICE_CHANNEL:
 				await member1.edit(mute=False, voice_channel=channel)
 				# 'member1を移動したフラグ'
-				reply[0] = 1
+				reply_list[0] = 1
 				flag = False
 		if flag:
 			invite = await channel.create_invite()
@@ -130,7 +120,7 @@ def ft_cim_two_voice(name1, name2):
 				await member1.create_dm()
 			await member1.dm_channel.send(invite)
 			# 'member1にDMを送ったフラグ'
-			reply[0] = 2
+			reply_list[0] = 2
 
 		# member2の処理
 		if flag_make_channel:
@@ -139,7 +129,7 @@ def ft_cim_two_voice(name1, name2):
 				if member2.voice.channel.name == FREE_VOICE_CHANNEL:
 					await member2.edit(mute=False, voice_channel=channel)
 					# 'member1を移動したフラグ'
-					reply[1] = 1
+					reply_list[1] = 1
 					flag = False
 			if flag:
 				invite = await channel.create_invite()
@@ -147,26 +137,13 @@ def ft_cim_two_voice(name1, name2):
 					await member2.create_dm()
 				await member2.dm_channel.send(invite)
 				'member2にDMを送ったフラグ'
-				reply[1] = 2
+				reply_list[1] = 2
 		else:
-			reply[1] = -1
-		await client.close()
-
-	# Botの起動とDiscordサーバーへの接続
-	client.run(TOKEN)
-	return reply
+			reply_list[1] = -1
 
 
-# memberを指定してログイン状態を返す
-def ft_return_status(name):
-
-	# 接続に必要なオブジェクトを生成
-	client = discord.Client()
-	reply = 0
-
-	# 起動時に動作する処理
-	@client.event
-	async def on_ready():
+	# memberを指定してログイン状態を返す
+	elif ready_flag == 3:
 		global reply
 
 		# guildを指定
@@ -183,23 +160,10 @@ def ft_return_status(name):
 		else:
 			# 'memberがオンラインではないことをしめすフラグ'
 			reply = 0
-		await client.close()
-
-	# Botの起動とDiscordサーバーへの接続
-	client.run(TOKEN)
-	return reply
 
 
-# フリーボイスに移動させてサーバーミュートにする
-def ft_move_freevoice(name):
-
-	# 接続に必要なオブジェクトを生成
-	client = discord.Client()
-	reply = 0
-
-	# 起動時に動作する処理
-	@client.event
-	async def on_ready():
+	# フリーボイスに移動させてサーバーミュートにする
+	elif ready_flag == 4:
 		global reply
 
 		# guildを指定
@@ -220,11 +184,32 @@ def ft_move_freevoice(name):
 				await member.edit(mute=True, voice_channel=channel)
 				# 'freevoiceへの移動が完了したフラグ'
 				reply = 1
-		await client.close()
 
-	# Botの起動とDiscordサーバーへの接続
+
+	await client.close()
+
+
+
+def ft_cim_voice():
+	global ready_flag
+	ready_flag = 1
 	client.run(TOKEN)
-	return reply
+
+def ft_cim_two_voice():
+	global ready_flag
+	ready_flag = 2
+	client.run(TOKEN)
+
+def ft_return_status():
+	global ready_flag
+	ready_flag = 3
+	client.run(TOKEN)
+
+
+def ft_move_freevoice():
+	global ready_flag
+	ready_flag = 4
+	client.run(TOKEN)
 
 
 # 
@@ -239,9 +224,13 @@ discordbot = Blueprint('discordbot', __name__)
 @discordbot.route('/cim_voice', methods=["GET", "POST"])
 @jwt_required()
 def cim_voice():
-	flag = ft_cim_voice(current_identity.ft_id)
-	if flag:
-		if flag == 1:
+	global name
+	global reply
+	reply = 0
+	name = current_identity.ft_id
+	ft_cim_voice()
+	if reply:
+		if reply == 1:
 			return make_response(jsonify({
 				'flag': '作成と移動が完了した旨のフラグ'
 			}))
@@ -260,14 +249,20 @@ def cim_voice():
 def cim_two_voice():
 
 	jsonData = json.dumps(request.json)
-	target = json.loads(jsonData)
-	target_name = target['username']
+	target_user = json.loads(jsonData)
 
-	flag = ft_cim_two_voice(current_identity.ft_id, target_name)
+	global name
+	global reply_list
+	global target
+	reply_list = [0, 0]
+	name = current_identity.ft_id
+	target = target_user['username']
 
-	if flag[0] and flag[1]:
-		if flag[1] == -1:
-			if flag[0] == 1:
+	ft_cim_two_voice()
+
+	if reply_list[0] and reply_list[1]:
+		if reply_list[1] == -1:
+			if reply_list[0] == 1:
 				return make_response(jsonify({
 					'flag': 'userの移動が完了した旨のフラグ'
 				}))
@@ -275,8 +270,8 @@ def cim_two_voice():
 				return make_response(jsonify({
 					'flag': 'userの招待が完了した旨のフラグ'
 				}))
-		elif flag[1] == 1:
-			if flag[0] == 1:
+		elif reply_list[1] == 1:
+			if reply_list[0] == 1:
 				return make_response(jsonify({
 					'flag': 'チャンネルの作成と、2人のuserの移動が完了した旨のフラグ'
 				}))
@@ -285,7 +280,7 @@ def cim_two_voice():
 					'flag': 'チャンネルの作成と、userの招待、相手の移動が完了した旨のフラグ'
 				}))
 		else:
-			if flag[0] == 1:
+			if reply_list[0] == 1:
 				return make_response(jsonify({
 					'flag': 'チャンネルの作成と、userの移動、相手の正体が完了した旨のフラグ'
 				}))
@@ -299,16 +294,20 @@ def cim_two_voice():
 	}))
 
 
-@discordbot.route('/status', methods=["GET", "POST"])
-@jwt_required()
+@discordbot.route('/status', methods=["POST"])
+# @jwt_required()
 def return_status():
 
 	jsonData = json.dumps(request.json)
 	target = json.loads(jsonData)
 	target_name = target['username']
 
-	flag = ft_return_status(target_name)
-	if flag:
+	global name
+	global reply
+	reply = 0
+	name = target_name
+	ft_return_status()
+	if reply:
 		return make_response(jsonify({
 			'flag': 'userがオンラインである旨のフラグ'
 		}))
@@ -321,8 +320,12 @@ def return_status():
 @discordbot.route('/move_freevoice', methods=["GET", "POST"])
 @jwt_required()
 def move_freevoice():
-	flag = ft_move_freevoice(current_identity.ft_id)
-	if flag:
+	global name
+	global reply
+	reply = 0
+	name = current_identity.ft_id
+	ft_move_freevoice()
+	if reply:
 		return make_response(jsonify({
 			'flag': 'userをFreeVoiceに移動した旨のフラグ'
 		}))
